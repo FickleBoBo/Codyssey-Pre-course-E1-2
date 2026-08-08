@@ -1,3 +1,4 @@
+from quiz import Quiz
 from quiz_data import DEFAULT_QUIZZES
 
 
@@ -15,6 +16,15 @@ def get_valid_int(prompt, min_value, max_value):
             print(f"⚠️ {min_value}-{max_value} 사이의 숫자를 입력하세요.")
             continue
         return value
+
+
+def get_valid_text(prompt):
+    while True:
+        text = input(prompt).strip()
+        if not text:
+            print("⚠️ 입력이 비어 있습니다. 다시 입력해주세요.")
+            continue
+        return text
 
 
 class QuizGame:
@@ -82,7 +92,13 @@ class QuizGame:
         print("=" * 40)
 
     def add_quiz(self):
-        print("(퀴즈 추가 기능은 다음 단계에서 구현 예정)")
+        print("\n📌 새로운 퀴즈를 추가합니다.\n")
+        question = get_valid_text("문제를 입력하세요: ")
+        choices = [get_valid_text(f"선택지 {i}: ") for i in range(1, 5)]
+        answer = get_valid_int("정답 번호 (1-4): ", 1, 4)
+
+        self.quizzes.append(Quiz(question, choices, answer))
+        print("\n✅ 퀴즈가 추가되었습니다!")
 
     def list_quizzes(self):
         print("(목록 보기 기능은 다음 단계에서 구현 예정)")
