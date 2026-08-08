@@ -9,9 +9,12 @@ STATE_FILE = "state.json"
 
 class QuizGame:
     def __init__(self):
+        self._reset_to_defaults()
+        self.load_data()
+
+    def _reset_to_defaults(self):
         self.quizzes = list(DEFAULT_QUIZZES)
         self.best_score = None
-        self.load_data()
 
     def show_menu(self):
         print("=" * 40)
@@ -109,9 +112,11 @@ class QuizGame:
             with open(STATE_FILE, "r", encoding="utf-8") as f:
                 data = json.load(f)
         except FileNotFoundError:
+            self._reset_to_defaults()
             return
         except (OSError, json.JSONDecodeError):
             print("⚠️ 저장된 데이터가 손상되어 기본 데이터로 초기화합니다.")
+            self._reset_to_defaults()
             return
 
         try:
@@ -122,8 +127,7 @@ class QuizGame:
             self.best_score = data["best_score"]
         except (KeyError, TypeError):
             print("⚠️ 저장된 데이터 형식이 올바르지 않아 기본 데이터로 초기화합니다.")
-            self.quizzes = list(DEFAULT_QUIZZES)
-            self.best_score = None
+            self._reset_to_defaults()
             return
 
         score_display = (
