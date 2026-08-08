@@ -83,7 +83,7 @@ class QuizGame:
         print("\n📌 새로운 퀴즈를 추가합니다.\n")
         question = get_valid_text("문제를 입력하세요: ")
         choices = [get_valid_text(f"선택지 {i}: ") for i in range(1, 5)]
-        answer = get_valid_int("정답 번호 (1-4): ", 1, 4)
+        answer = get_valid_int(f"정답 번호 (1-{len(choices)}): ", 1, len(choices))
 
         self.quizzes.append(Quiz(question, choices, answer))
         print("\n✅ 퀴즈가 추가되었습니다!")
