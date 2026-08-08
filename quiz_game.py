@@ -30,7 +30,7 @@ def get_valid_text(prompt):
 class QuizGame:
     def __init__(self):
         self.quizzes = list(DEFAULT_QUIZZES)
-        self.best_score = 0
+        self.best_score = None
 
     def show_menu(self):
         print("=" * 40)
@@ -86,7 +86,7 @@ class QuizGame:
         score = round(correct_count / total * 100)
         print("=" * 40)
         print(f"🏆 결과: {total}문제 중 {correct_count}문제 정답! ({score}점)")
-        if score > self.best_score:
+        if self.best_score is None or score > self.best_score:
             self.best_score = score
             print("🎉 새로운 최고 점수입니다!")
         print("=" * 40)
@@ -112,4 +112,8 @@ class QuizGame:
         print("-" * 40)
 
     def show_best_score(self):
-        print("(점수 확인 기능은 다음 단계에서 구현 예정)")
+        if self.best_score is None:
+            print("⚠️ 아직 퀴즈를 푼 기록이 없습니다.")
+            return
+
+        print(f"\n🏆 최고 점수: {self.best_score}점")
