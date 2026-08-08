@@ -101,7 +101,15 @@ class QuizGame:
         print("\n✅ 퀴즈가 추가되었습니다!")
 
     def list_quizzes(self):
-        print("(목록 보기 기능은 다음 단계에서 구현 예정)")
+        if not self.quizzes:
+            print("⚠️ 등록된 퀴즈가 없습니다.")
+            return
+
+        print(f"\n📋 등록된 퀴즈 목록 (총 {len(self.quizzes)}개)\n")
+        print("-" * 40)
+        for i, quiz in enumerate(self.quizzes, start=1):
+            print(f"[{i}] {quiz.question}")
+        print("-" * 40)
 
     def show_best_score(self):
         print("(점수 확인 기능은 다음 단계에서 구현 예정)")
