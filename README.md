@@ -70,7 +70,8 @@ python main.py
 ├── main.py         # 프로그램 진입점 (QuizGame 생성 및 실행)
 ├── quiz.py         # Quiz 클래스 (문제 하나의 데이터 및 출제/정답 확인 로직)
 ├── quiz_data.py     # 기본 퀴즈 데이터 (DEFAULT_QUIZZES)
-├── quiz_game.py     # QuizGame 클래스 (메뉴/게임 진행/입력 검증/파일 저장·불러오기)
+├── quiz_game.py     # QuizGame 클래스 (메뉴/게임 진행/파일 저장·불러오기)
+├── input_utils.py   # 공통 입력 검증 유틸리티 (get_valid_int, get_valid_text)
 ├── state.json       # 퀴즈 목록 및 최고 점수 저장 파일 (실행 시 자동 생성, 저장소에는 미포함)
 ├── assets/          # 제출용 스크린샷
 ├── README.md
