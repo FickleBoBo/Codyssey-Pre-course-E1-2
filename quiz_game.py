@@ -23,25 +23,28 @@ class QuizGame:
         print("=" * 40)
         print("1. 퀴즈 풀기")
         print("2. 퀴즈 추가")
-        print("3. 목록 보기")
-        print("4. 점수 확인")
-        print("5. 종료")
+        print("3. 퀴즈 삭제")
+        print("4. 목록 보기")
+        print("5. 점수 확인")
+        print("6. 종료")
         print("=" * 40)
 
     def run(self):
         try:
             while True:
                 self.show_menu()
-                choice = get_valid_int("선택: ", 1, 5)
+                choice = get_valid_int("선택: ", 1, 6)
                 if choice == 1:
                     self.play_quiz()
                 elif choice == 2:
                     self.add_quiz()
                 elif choice == 3:
-                    self.list_quizzes()
+                    self.delete_quiz()
                 elif choice == 4:
-                    self.show_best_score()
+                    self.list_quizzes()
                 elif choice == 5:
+                    self.show_best_score()
+                elif choice == 6:
                     print("게임을 종료합니다.")
                     break
         except (KeyboardInterrupt, EOFError):
@@ -91,6 +94,21 @@ class QuizGame:
 
         self.quizzes.append(Quiz(question, choices, answer))
         print("\n✅ 퀴즈가 추가되었습니다!")
+        self.save_data()
+
+    def delete_quiz(self):
+        if not self.quizzes:
+            print("⚠️ 등록된 퀴즈가 없습니다.")
+            return
+
+        self.list_quizzes()
+        index = get_valid_int(
+            f"\n삭제할 퀴즈 번호를 입력하세요 (1-{len(self.quizzes)}): ",
+            1,
+            len(self.quizzes),
+        )
+        removed = self.quizzes.pop(index - 1)
+        print(f"\n🗑️ '{removed.question}' 퀴즈가 삭제되었습니다.")
         self.save_data()
 
     def list_quizzes(self):
