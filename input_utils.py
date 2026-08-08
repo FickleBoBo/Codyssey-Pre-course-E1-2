@@ -4,7 +4,7 @@ def get_valid_int(prompt, min_value, max_value):
         if not raw:
             print("⚠️ 입력이 비어 있습니다. 다시 입력해주세요.")
             continue
-        if not raw.isdigit():
+        if not raw.isdecimal():
             print("⚠️ 숫자만 입력해주세요.")
             continue
         value = int(raw)
