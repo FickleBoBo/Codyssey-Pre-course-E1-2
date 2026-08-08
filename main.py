@@ -1,5 +1,10 @@
 from quiz_game import QuizGame
 
-if __name__ == "__main__":
+
+def main():
     game = QuizGame()
     game.run()
+
+
+if __name__ == "__main__":
+    main()
