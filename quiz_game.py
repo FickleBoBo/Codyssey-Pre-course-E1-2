@@ -193,6 +193,20 @@ class QuizGame:
             ]
             self.best_score = data["best_score"]
             self.score_history = data["score_history"]
+
+            if self.best_score is not None and not isinstance(self.best_score, int):
+                raise TypeError
+            for quiz in self.quizzes:
+                if not isinstance(quiz.answer, int) or not (
+                    1 <= quiz.answer <= len(quiz.choices)
+                ):
+                    raise TypeError
+            for record in self.score_history:
+                if not isinstance(record, dict):
+                    raise TypeError
+                for key in ("total", "score", "hint_used_count"):
+                    if not isinstance(record.get(key), int):
+                        raise TypeError
         except (KeyError, TypeError):
             print("⚠️ 저장된 데이터 형식이 올바르지 않아 기본 데이터로 초기화합니다.")
             self._reset_to_defaults()
