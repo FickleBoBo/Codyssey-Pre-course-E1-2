@@ -1,4 +1,5 @@
 import json
+import random
 
 from input_utils import get_valid_int, get_valid_text
 from quiz import Quiz
@@ -53,12 +54,15 @@ class QuizGame:
             print("⚠️ 등록된 퀴즈가 없습니다. 먼저 퀴즈를 추가해주세요.")
             return
 
-        total = len(self.quizzes)
+        total = get_valid_int(
+            f"\n풀 문제 수를 입력하세요 (1-{len(self.quizzes)}): ", 1, len(self.quizzes)
+        )
+        quizzes_to_play = random.sample(self.quizzes, total)
         correct_count = 0
 
         print(f"\n📝 퀴즈를 시작합니다! (총 {total}문제)")
 
-        for i, quiz in enumerate(self.quizzes, start=1):
+        for i, quiz in enumerate(quizzes_to_play, start=1):
             print("-" * 40)
             print(f"[문제 {i}]")
             quiz.show()
