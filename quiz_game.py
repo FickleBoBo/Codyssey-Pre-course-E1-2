@@ -27,7 +27,7 @@ class QuizGame:
         print("1. 퀴즈 풀기")
         print("2. 퀴즈 추가")
         print("3. 퀴즈 삭제")
-        print("4. 목록 보기")
+        print("4. 퀴즈 목록")
         print("5. 점수 확인")
         print("6. 종료")
         print("=" * 40)
