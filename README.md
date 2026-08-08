@@ -54,13 +54,31 @@ python main.py
 
 ## 실행 화면
 
-**퀴즈 풀기**
+메뉴 1번부터 6번까지 순서대로 실제 실행한 화면.
+
+**1. 퀴즈 풀기** — 풀 문제 수 선택 → 무작위 순서로 출제 → 정답 대신 `0` 입력 시 힌트 확인 → 결과 및 최고 점수 갱신 여부 표시
 
 ![퀴즈 풀기](assets/quiz_play.png)
 
-**퀴즈 추가 / 퀴즈 목록 / 점수 확인** (재실행 후 저장된 데이터 불러오기 확인 포함)
+**2. 퀴즈 추가** — 문제/선택지 4개/정답 번호/힌트를 입력받아 등록
 
-![퀴즈 추가, 퀴즈 목록, 점수 확인](assets/quiz_add_list_score.png)
+![퀴즈 추가](assets/quiz_add.png)
+
+**3. 퀴즈 삭제** — 목록에서 번호를 선택해 삭제
+
+![퀴즈 삭제](assets/quiz_delete.png)
+
+**4. 퀴즈 목록** — 삭제 후 갱신된 목록 확인 (저장된 데이터 불러오기 확인 포함)
+
+![퀴즈 목록](assets/quiz_list.png)
+
+**5. 점수 확인** — 최고 점수와 회차별 전체 게임 기록(날짜/시간, 문제 수, 점수, 힌트 사용 수)
+
+![점수 확인](assets/quiz_score.png)
+
+**6. 종료** — 데이터 저장 후 안전하게 종료
+
+![종료](assets/quiz_exit.png)
 
 ---
 
@@ -118,7 +136,7 @@ python main.py
 
 ## Git 히스토리
 
-기능 단위 커밋, `feat/quiz` 브랜치 생성 및 `main` 병합 이력.
+기능 단위 커밋, `feat/quiz`·`feat/bonus` 브랜치 생성 및 `main` 병합 이력.
 
 ![git log --oneline --graph](assets/git_log.png)
 
