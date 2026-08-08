@@ -42,10 +42,10 @@ class QuizGame:
                     self.show_best_score()
                 elif choice == 5:
                     print("게임을 종료합니다.")
-                    self.save_data()
                     break
         except (KeyboardInterrupt, EOFError):
             print("\n⚠️ 강제 종료 신호를 감지했습니다. 안전하게 종료합니다.")
+        finally:
             self.save_data()
 
     def play_quiz(self):
