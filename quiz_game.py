@@ -6,6 +6,7 @@ from quiz import Quiz
 from quiz_data import DEFAULT_QUIZZES
 
 STATE_FILE = "state.json"
+HINT_CREDIT_RATIO = 0.5
 
 
 class QuizGame:
@@ -62,6 +63,8 @@ class QuizGame:
         )
         quizzes_to_play = random.sample(self.quizzes, total)
         correct_count = 0
+        score_units = 0.0
+        hint_used_count = 0
 
         print(f"\n📝 퀴즈를 시작합니다! (총 {total}문제)")
 
@@ -69,23 +72,33 @@ class QuizGame:
             print("-" * 40)
             print(f"[문제 {i}]")
             quiz.show()
+            hint_shown = False
             while True:
                 user_answer = get_valid_int(
                     "\n정답 입력 (힌트를 보려면 0): ", 0, len(quiz.choices)
                 )
                 if user_answer == 0:
                     print(f"💡 힌트: {quiz.hint}")
+                    hint_shown = True
                     continue
                 break
+            if hint_shown:
+                hint_used_count += 1
             if quiz.check_answer(user_answer):
                 print("✅ 정답입니다!\n")
                 correct_count += 1
+                score_units += HINT_CREDIT_RATIO if hint_shown else 1
             else:
                 print(f"❌ 오답입니다. (정답: {quiz.answer}번)\n")
 
-        score = round(correct_count / total * 100)
+        score = round(score_units / total * 100)
+
         print("=" * 40)
         print(f"🏆 결과: {total}문제 중 {correct_count}문제 정답! ({score}점)")
+        if hint_used_count > 0:
+            print(
+                f"💡 {hint_used_count}문제에서 힌트를 사용해 해당 문제는 절반 점수만 인정됩니다."
+            )
         if self.best_score is None or score > self.best_score:
             self.best_score = score
             print("🎉 새로운 최고 점수입니다!")
