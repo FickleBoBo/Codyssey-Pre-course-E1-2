@@ -69,7 +69,14 @@ class QuizGame:
             print("-" * 40)
             print(f"[문제 {i}]")
             quiz.show()
-            user_answer = get_valid_int("\n정답 입력: ", 1, len(quiz.choices))
+            while True:
+                user_answer = get_valid_int(
+                    "\n정답 입력 (힌트를 보려면 0): ", 0, len(quiz.choices)
+                )
+                if user_answer == 0:
+                    print(f"💡 힌트: {quiz.hint}")
+                    continue
+                break
             if quiz.check_answer(user_answer):
                 print("✅ 정답입니다!\n")
                 correct_count += 1
@@ -91,8 +98,9 @@ class QuizGame:
         question = get_valid_text("문제를 입력하세요: ")
         choices = [get_valid_text(f"선택지 {i}: ") for i in range(1, 5)]
         answer = get_valid_int(f"정답 번호 (1-{len(choices)}): ", 1, len(choices))
+        hint = get_valid_text("힌트를 입력하세요: ")
 
-        self.quizzes.append(Quiz(question, choices, answer))
+        self.quizzes.append(Quiz(question, choices, answer, hint))
         print("\n✅ 퀴즈가 추가되었습니다!")
         self.save_data()
 
@@ -143,7 +151,7 @@ class QuizGame:
 
         try:
             self.quizzes = [
-                Quiz(item["question"], item["choices"], item["answer"])
+                Quiz(item["question"], item["choices"], item["answer"], item["hint"])
                 for item in data["quizzes"]
             ]
             self.best_score = data["best_score"]
@@ -164,7 +172,12 @@ class QuizGame:
     def save_data(self):
         data = {
             "quizzes": [
-                {"question": q.question, "choices": q.choices, "answer": q.answer}
+                {
+                    "question": q.question,
+                    "choices": q.choices,
+                    "answer": q.answer,
+                    "hint": q.hint,
+                }
                 for q in self.quizzes
             ],
             "best_score": self.best_score,
