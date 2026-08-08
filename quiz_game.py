@@ -1,5 +1,6 @@
 import json
 import random
+from datetime import datetime
 
 from input_utils import get_valid_int, get_valid_text
 from quiz import Quiz
@@ -17,6 +18,7 @@ class QuizGame:
     def _reset_to_defaults(self):
         self.quizzes = list(DEFAULT_QUIZZES)
         self.best_score = None
+        self.score_history = []
 
     def show_menu(self):
         print("=" * 40)
@@ -99,6 +101,15 @@ class QuizGame:
             print(
                 f"💡 {hint_used_count}문제에서 힌트를 사용해 해당 문제는 절반 점수만 인정됩니다."
             )
+
+        self.score_history.append(
+            {
+                "datetime": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "total": total,
+                "score": score,
+                "hint_used_count": hint_used_count,
+            }
+        )
         if self.best_score is None or score > self.best_score:
             self.best_score = score
             print("🎉 새로운 최고 점수입니다!")
@@ -149,6 +160,19 @@ class QuizGame:
             return
 
         print(f"\n🏆 최고 점수: {self.best_score}점")
+        print(f"\n📊 전체 기록 (총 {len(self.score_history)}회)")
+        print("-" * 40)
+        for i, record in enumerate(self.score_history, start=1):
+            hint_note = (
+                f", 힌트 {record['hint_used_count']}회"
+                if record["hint_used_count"] > 0
+                else ""
+            )
+            print(
+                f"{i}회차 [{record['datetime']}] "
+                f"{record['total']}문제, {record['score']}점{hint_note}"
+            )
+        print("-" * 40)
 
     def load_data(self):
         try:
@@ -168,6 +192,7 @@ class QuizGame:
                 for item in data["quizzes"]
             ]
             self.best_score = data["best_score"]
+            self.score_history = data["score_history"]
         except (KeyError, TypeError):
             print("⚠️ 저장된 데이터 형식이 올바르지 않아 기본 데이터로 초기화합니다.")
             self._reset_to_defaults()
@@ -194,6 +219,7 @@ class QuizGame:
                 for q in self.quizzes
             ],
             "best_score": self.best_score,
+            "score_history": self.score_history,
         }
         try:
             with open(STATE_FILE, "w", encoding="utf-8") as f:
