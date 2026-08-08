@@ -10,4 +10,4 @@ class Quiz:
             print(f"{i}. {choice}")
 
     def check_answer(self, user_answer):
-        return user_answer == self.answer
+        return self.answer == user_answer
