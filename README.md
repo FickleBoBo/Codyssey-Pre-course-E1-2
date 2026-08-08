@@ -23,6 +23,8 @@
 | 에디터 | VSCode (Ruff 확장 사용) |
 | Git    | 2.55.0                  |
 
+![개발 환경](assets/dev_environment.png)
+
 ---
 
 ## 실행 방법
@@ -49,6 +51,18 @@ python main.py
 
 ---
 
+## 실행 화면
+
+**퀴즈 풀기**
+
+![퀴즈 풀기](assets/quiz_play.png)
+
+**퀴즈 추가 / 목록 보기 / 점수 확인** (재실행 후 저장된 데이터 불러오기 확인 포함)
+
+![퀴즈 추가, 목록 보기, 점수 확인](assets/quiz_add_list_score.png)
+
+---
+
 ## 파일 구조
 
 ```
@@ -58,6 +72,7 @@ python main.py
 ├── quiz_data.py     # 기본 퀴즈 데이터 (DEFAULT_QUIZZES)
 ├── quiz_game.py     # QuizGame 클래스 (메뉴/게임 진행/입력 검증/파일 저장·불러오기)
 ├── state.json       # 퀴즈 목록 및 최고 점수 저장 파일 (실행 시 자동 생성, 저장소에는 미포함)
+├── assets/          # 제출용 스크린샷
 ├── README.md
 └── .gitignore
 ```
@@ -86,5 +101,13 @@ python main.py
 
   - `quizzes`: 퀴즈 목록. 각 항목은 문제(`question`), 선택지 4개(`choices`), 정답 번호(`answer`, 1부터 시작)로 구성
   - `best_score`: 최고 점수(0~100점). 아직 한 번도 퀴즈를 풀지 않았다면 `null`
+
+---
+
+## Git 히스토리
+
+기능 단위 커밋, `feat/quiz` 브랜치 생성 및 `main` 병합 이력.
+
+![git log --oneline --graph](assets/git_log.png)
 
 ---
